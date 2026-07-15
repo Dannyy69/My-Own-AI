@@ -1,25 +1,43 @@
+import { useEffect, useState } from "react";
+import api from "../services/api";
+
 export default function Dashboard() {
-  return (
-    <div className="dashboard">
-      <div className="card">
-        <h3>Vectors</h3>
-        <h1>0</h1>
-      </div>
+    const [system, setSystem] = useState<any>(null);
 
-      <div className="card">
-        <h3>Documents</h3>
-        <h1>0</h1>
-      </div>
+    useEffect(() => {
+        api.get("/system/info")
+            .then((res) => {
+                console.log("API Response:", res.data);
+                setSystem(res.data);
+            })
+            .catch((err) => {
+                console.error("API Error:", err);
+            });
+    }, []);
 
-      <div className="card">
-        <h3>Latency</h3>
-        <h1>0 ms</h1>
-      </div>
+    return (
+        <div className="dashboard">
 
-      <div className="card">
-        <h3>Model</h3>
-        <h1>Ready</h1>
-      </div>
-    </div>
-  );
+            <div className="card">
+                <h3>System</h3>
+                <h1>{system ? system.status : "Loading..."}</h1>
+            </div>
+
+            <div className="card">
+                <h3>Engine</h3>
+                <h1>{system ? system.engine : "--"}</h1>
+            </div>
+
+            <div className="card">
+                <h3>Version</h3>
+                <h1>{system ? system.version : "--"}</h1>
+            </div>
+
+            <div className="card">
+                <h3>Name</h3>
+                <h1>{system ? system.name : "--"}</h1>
+            </div>
+
+        </div>
+    );
 }

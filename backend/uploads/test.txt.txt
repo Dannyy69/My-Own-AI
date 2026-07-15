@@ -1,0 +1,7 @@
+Python is a programming language.
+
+FastAPI is a modern Python web framework.
+
+Ollama lets you run LLMs locally.
+
+Nyrion AI uses Retrieval-Augmented Generation (RAG).
